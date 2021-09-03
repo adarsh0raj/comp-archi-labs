@@ -6,6 +6,7 @@ prompt_three: .asciiz "Wish to continue?: "
 char1: .asciiz "*"         
 char2: .asciiz " = 1 (mod "
 char3: .asciiz ")\n"
+newline: .asciiz "\n"
 
 .text
 
@@ -108,7 +109,29 @@ main:
     la $a0, char3
     syscall
 
-EXIT:
+    li $v0, 4
+    la $a0, prompt_three
+    syscall
+
+    li $v0, 12
+    syscall
+
+    move $t7, $v0
+
+    li $v0, 12
+    syscall 
+    
+    beq $t7, 89, continue
+    beq $t7, 78, exit
+
+continue:
+
+    li $v0, 4
+    la $a0, newline
+    syscall
+    j main
+
+exit:
 
     li $v0 10              # exit
     syscall

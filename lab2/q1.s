@@ -2,9 +2,10 @@
 
 prompt_one: .asciiz "Enter n: "                          # First Prompt
 prompt_two: .asciiz "Enter r: "                          # Second Prompt
-prompt_three: .asciiz "Wish to continue?: "               # Third prompt
+prompt_three: .asciiz "\nWish to continue?: "               # Third prompt
 prompt_four: .asciiz "C"
 prompt_five: .asciiz ": "
+newline: .asciiz "\n"
 
 .text
 
@@ -103,7 +104,29 @@ main:
     li $v0, 1
     syscall
 
-EXIT:
+    li $v0, 4
+    la $a0, prompt_three
+    syscall
+
+    li $v0, 12
+    syscall
+
+    move $t2, $v0
+
+    li $v0, 12
+    syscall 
+    
+    beq $t2, 89, continue
+    beq $t2, 78, exit
+
+continue:
+
+    li $v0, 4
+    la $a0, newline
+    syscall
+    j main
+
+exit:
 
     li $v0 10              # exit
     syscall
