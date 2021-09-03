@@ -2,7 +2,9 @@
 
 prompt_one: .asciiz "Enter n: "                          # First Prompt
 prompt_two: .asciiz "Enter r: "                          # Second Prompt
-prompt_three: .asciiz "Wish to continue?:"               # Third prompt
+prompt_three: .asciiz "Wish to continue?: "               # Third prompt
+prompt_four: .asciiz "C"
+prompt_five: .asciiz ": "
 
 .text
 
@@ -77,7 +79,27 @@ main:
     lw $ra, 0($sp)
     addi $sp, $sp, 4
 
-    move $a0, $v0
+    move $t2, $a0
+    move $t3, $a1
+    move $t4, $v0
+
+    move $a0, $t2
+    li $v0, 1
+    syscall
+
+    la $a0, prompt_four
+    li $v0, 4
+    syscall
+
+    move $a0, $t3
+    li $v0, 1
+    syscall
+
+    la $a0, prompt_five
+    li $v0, 4
+    syscall
+
+    move $a0, $t4
     li $v0, 1
     syscall
 
