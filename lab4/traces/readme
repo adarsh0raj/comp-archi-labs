@@ -1,0 +1,6 @@
+Default                    Changed
+
+(1 << 20), 1000            (1 << 14), 800     -> bfs
+(1 << 20)                  (1<<13)+(1<<12)    -> quicksort
+1024                       500                -> matrix_multi
+1024                       500                -> matrix_multi_2

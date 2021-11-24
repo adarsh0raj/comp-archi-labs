@@ -1,0 +1,22 @@
+#!/bin/bash
+
+declare -a arr=("bfs" "matrix_multi" "matrix_multi_2" "quicksort") 
+declare -a arr2=("baseline" "direct-mapped" "fully-associative" "reduced-size" "doubled-size" "doubled-mshr" "reduced-mshr")
+
+for j in "${arr2[@]}"
+do
+	mkdir "../../host/Desktop/comp-archi-labs/lab4/$j"
+done
+
+for j in "${arr2[@]}"
+do
+	cp "../cachefiles/cache-$j.h" inc/cache.h
+	./build_champsim.sh bimodal no no no no lru 1 > temp
+	rm temp
+	for i in "${arr[@]}"
+	do
+		./run_champsim.sh bimodal-no-no-no-no-lru-1core 10 10 "$i.trace.xz"
+		cp "results_10M/$i.trace.xz-bimodal-no-no-no-no-lru-1core.txt" "../../host/Desktop/comp-archi-labs/lab4/$j/"
+		echo "done with ($j: $i)"
+	done
+done
